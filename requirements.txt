@@ -1,0 +1,5 @@
+six
+pytz
+pyperclip>=1.5,<2.0
+python-ctags>=1.0,<2.0
+choice==0.1
