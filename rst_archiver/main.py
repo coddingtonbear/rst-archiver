@@ -1,5 +1,6 @@
 from __future__ import print_function
 
+import cgi
 import os
 import shutil
 import tempfile
@@ -32,11 +33,14 @@ def archive_file(document_path, asset_path):
 
 
 def archive_url(document_path, asset_url):
-    data = urllib2.urlopen(asset_url).read()
-    temporary_path = os.path.join(
-        tempfile.gettempdir(),
-        os.path.basename(asset_url),
-    )
+    opener = urllib2.urlopen(asset_url)
+    info = opener.info()
+    _, metadata = cgi.parse_header(info.getheader('Content-Disposition'))
+    filename = os.path.basename(metadata.get('filename'))
+    if not filename:
+        filename = os.path.basename(asset_url)
+    data = opener.read()
+    temporary_path = os.path.join(tempfile.gettempdir(), filename)
 
     with open(temporary_path, 'w') as out:
         out.write(data)
