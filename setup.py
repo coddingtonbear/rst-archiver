@@ -27,7 +27,7 @@ except ImportError:
 
 setup(
     name='rst-archiver',
-    version='0.1',
+    version='0.1.1',
     url='https://github.com/coddingtonbear/rst-archiver',
     description=(
         'Add files to your RST notes more easily.'
